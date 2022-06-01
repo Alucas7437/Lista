@@ -1,69 +1,63 @@
-public class DoubleLinkedListObj <T>{
+public class DoubleLinkedListObj<T> {
     Element<T> firstElement;
     Element<T> lastElement;
-    public DoubleLinkedListObj(){
+
+
+    public DoubleLinkedListObj() {
 
     }
-    public void insertFirst(T obj){
-        Element<T>newElement=new Element<>(obj);
-        if(firstElement!=null){
+
+    public void insertFirst(T obj) {
+        Element<T> newElement = new Element<>(obj);
             newElement.setNext(firstElement);
-            firstElement.setPrev(newElement);
             firstElement=newElement;
-        }else {
-            firstElement=newElement;
-        }
-
-
+            firstElement.setPrev(null);
     }
 
-    public void insertLast(T obj){
-        Element<T>newElement=new Element<>(obj);
-            lastElement.setNext(newElement);
-            newElement.setPrev(lastElement);
-            lastElement=newElement;
+
+
+
+    public boolean isEmpty() {
+        return firstElement == null;
     }
 
-    public boolean isEmpty(){
-        return firstElement==null;
-    }
-
-    public T getObjectAtPosition(int i){
-        int counter=0;
-        Element<T> element=firstElement;
-        while (element!=null){
-            element=element.getNext();
+    public T getObjectAtPosition(int i) {
+        int counter = -1;
+        Element<T> element = firstElement;
+        while (element != null) {
             counter++;
-            if(counter==i){
+            if (counter == i) {
                 return element.getObject();
             }
+            element = element.getNext();
         }
         return null;
     }
 
-    public T getObjectFromLast(int i){
-        int counter=0;
-        Element<T>last=lastElement;
-        while (last!=null){
-            last=last.getPrev();
+    public T getObjectFromLast(int i) {
+        int counter = -1;
+        Element<T> last = lastElement;
+        while (last != null) {
             counter++;
-            if(counter==i){
+
+            if (counter == i) {
                 return last.getObject();
             }
+            last = last.getPrev();
         }
         return null;
     }
 
-    public void remove(T obj){
-        int indexObject=findIndexOf(obj);
-        Element<T>element=elementAt(indexObject);
-        Element<T>nextElement=element.getNext();
-        if(element==firstElement){
-            firstElement=firstElement.getNext();
-        }else if(element==lastElement) {
-            lastElement=lastElement.getPrev();
-        }else {
-            Element<T> previous=element.getPrev();
+    public void remove(T obj) {
+        int indexObject = findIndexOf(obj);
+        Element<T> element = elementAt(indexObject);
+        Element<T> nextElement = element.getNext();
+        if (element == firstElement) {
+            firstElement = firstElement.getNext();
+        } else if (element == lastElement) {
+            lastElement = lastElement.getPrev();
+        } else {
+            Element<T> previous = element.getPrev();
             previous.setNext(nextElement);
         }
         element.delete();
@@ -102,16 +96,14 @@ public class DoubleLinkedListObj <T>{
     }
 
     public String toString() {
-        Element<T> element = firstElement;
-        Element<T>last=lastElement;
+        Element<T> element = firstElement;;
         String cadena = "[";
-        cadena+=element+", ";
-        while (element.getNext()!=null){
-            element=element.getNext();
-            cadena+=element;
-            cadena+=", ";
+        cadena+=firstElement;
+        while (element.getNext() != null) {
+            element = element.getNext();
+            cadena += element;
+            cadena += ", ";
         }
-        cadena+=last;
         cadena += "]";
         return cadena;
     }
