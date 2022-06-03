@@ -6,7 +6,7 @@ public class Main {
         DoubleLinkedListObj<Contacto> linkedList=new DoubleLinkedListObj<>();
         linkedList.insertFirst(contacto1);
         linkedList.insertFirst(contacto2);
-        linkedList.insertFirst(contacto);
-        System.out.println(linkedList);
+       linkedList.insertLast(contacto);
+        System.out.println(linkedList.getObjectAtPosition(2));
     }
 }
