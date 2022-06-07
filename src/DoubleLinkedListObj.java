@@ -13,8 +13,10 @@ public class DoubleLinkedListObj<T> {
         if(firstElement == null)
             firstElement = newElement;
 
-        if (newElement != firstElement)
+        if (newElement != firstElement) {
             firstElement.setPrev(newElement);
+            firstElement = newElement;
+        }
     }
 
 
@@ -42,7 +44,7 @@ public class DoubleLinkedListObj<T> {
     }
 
     public T getObjectAtPosition(int i) {
-        int counter = 0;
+        int counter = -1;
         Element<T> element = firstElement;
         while (element != null) {
             counter++;
@@ -69,6 +71,23 @@ public class DoubleLinkedListObj<T> {
 
 
     public void remove(T obj) {
+    if(isEmpty()){
+        System.out.println("Lista vacia");
+    }
+    Element<T> element=elementAt(findIndexOf(obj));
+
+    if(element==firstElement){
+        firstElement=firstElement.getNext();
+    } else if(element==getLast()){
+        Element<T>previous=element.getPrev();
+        previous.setNext(null);
+    } else {
+        Element<T>nextElement=element.getNext();
+        Element<T> previous=element.getPrev();
+        previous.setNext(nextElement);
+        nextElement.setPrev(previous);
+    }
+    element.delete();
 
     }
 
@@ -103,12 +122,10 @@ public class DoubleLinkedListObj<T> {
 
     public String toString() {
         Element<T> element = firstElement;
-        ;
         String cadena = "[";
-        cadena += firstElement;
-        while (element.getNext() != null) {
-            element = element.getNext();
+        while (element != null) {
             cadena += element;
+            element = element.getNext();
             cadena += ", ";
         }
         cadena += "]";
